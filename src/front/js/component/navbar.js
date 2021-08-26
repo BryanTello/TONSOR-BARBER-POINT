@@ -1,16 +1,18 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
+import "../../styles/nav.scss";
 
 export const Navbar = () => {
 	return (
-		<nav className="navbar navbar-light bg-light mb-3">
-			<Link to="/">
-				<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-			</Link>
+		<nav className="location-nav">
 			<div className="ml-auto">
-				<Link to="/demo">
-					<button className="btn btn-primary">Check the Context in action</button>
-				</Link>
+				<Link to="/demo" className="img-button-logo btn" />
+				<button size="lg" className="butt-nav">
+					Login
+				</button>{" "}
+				<button size="lg" className="butt-nav">
+					Register
+				</button>
 			</div>
 		</nav>
 	);

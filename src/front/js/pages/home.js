@@ -1,23 +1,20 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.scss";
+import bigote_02 from "../../img/bigote_02.png";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">{store.message || "Loading message from the backend..."}</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
+		<div className="text-center">
+			<div className="cabecera-nav" />
+			<img className="emo-barb" src={bigote_02} />
+			<h1 className="h1-cabecera">Manter tu cabello siempre perfecto ahora es fácil</h1>
+			<p className="p-dark">
+				TONSOR hace que sesa muy sencillo mantener un look simpre perfecto, aun cuando no tienes tiempo y
+				estando desde la comodidad de tu casa. Sólo tienes que selecionar tu ubicación, hora ,servicio e incluso
+				el profesional de tu elección; del resto nos encarnamos nosotros.
 			</p>
 		</div>
 	);

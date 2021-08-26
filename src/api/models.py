@@ -1,15 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import VARCHAR
 
 db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    email = db.Column(db.Varchar, unique=True, nullable=False)
+    first_name = db.Column(db.Varchar, unique=False, nullable=False)
+    last_name = db.Column(db.Varchar, unique=False, nullable=False)
+    _password = db.Column(db.Varchar, unique=False, nullable=False)
+    _is_active = db.Column(db.Boolean(), default=True, unique=False, nullable=False)
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return f'User {self.email}'
 
     def serialize(self):
         return {
@@ -17,3 +20,8 @@ class User(db.Model):
             "email": self.email,
             # do not serialize the password, its a security breach
         }
+
+    @classmethod
+    def get_by_email(cls.email):
+        user = cls.quuery.filter_by(email = email).one_or_none()
+        return user
