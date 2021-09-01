@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/nav.scss";
+import { Buscador } from "./buscador.js";
 
 export const Navbar = () => {
 	return (
@@ -11,9 +12,10 @@ export const Navbar = () => {
 					Login
 				</button>{" "}
 				<button size="lg" className="butt-nav">
-					Register
+					Registro
 				</button>
 			</div>
+			<Buscador />
 		</nav>
 	);
 };
