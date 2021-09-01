@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import bigote_02 from "../../img/bigote_02.png";
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />;
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -17,7 +18,7 @@ export const Home = () => {
 				deseas; del resto nos encarnamos nosotros.
 			</p>
 
-			<div className="body-service text-center">
+			<div className="body-service text-center float-m-lg">
 				<h2 className="h1-header">Tener tu cabello y tu apariencia perfecta ahora es sencillo</h2>
 				<div className="div-service row gy-2">
 					<div className="col-4">
@@ -46,7 +47,7 @@ export const Home = () => {
 					</div>
 				</div>
 			</div>
-			<div className="body-service row justify-content-center">
+			<div className="body-service row justify-content-center m-lg">
 				<div className="barber-card col-8" />
 				<div className="register-barb col-4">
 					<h3 className="h1-header">¿Eres un Profesional? Únete a nuestro equipo de TONSORES</h3>
