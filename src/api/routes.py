@@ -10,7 +10,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from api.utils import generate_sitemap, APIException
-from api.models import db, Account, Review, Barber, Services, Barber_Services, Appointment, Client
+from api.models import db, Account, Review, Barber, Services, Barber_Services, Client, Appointment
 
 api = Blueprint('api', __name__)
 
@@ -201,3 +201,64 @@ def get_barber_profile(id):
 
 
     
+class Appointment(db.Model):
+    __tablename__="appointment"
+    id = db.Column(db.Integer, primary_key=True)
+    date_appointment = db.Column(db.DateTime, nullable=False)
+    id_barber_Services = db.Column(db.Integer, ForeignKey("barberServices.id"))
+    id_client = db.Column(db.Integer, ForeignKey("client.id"))
+
+    def __repr__(self):
+        return f'Appointment {self.appointment}'
+
+    def serialize (self):
+        return {
+            "id": self.id, 
+            "date_Appointment": self.date_appointment, 
+            "id_barber_Services":self.id_barber_Services,
+            "id_client": self.id_client 
+        }
+    
+@api.route('/client/<int:id>', methods=['PUT'])
+def edit_client(id):
+    new_info = { 
+        'img' : request.json.get('img', None),
+        'name' : request.json.get('name', None),
+        'lastname' : request.json.get('lastname', None),
+        'phone_number' : request.json.get('phone_number', None),
+        'email' : request.json.get('email', None),
+        'password' : request.json.get('_password', None),
+        'address' : request.json.get('address', None),
+        'city' : request.json.get('city', None)
+    }
+    account = Account.get_by_id(id)
+    if account:
+        update_client = account.edit_client(**{
+            key: value for key,value in new_info.items()
+            if value is not None
+        })
+        return jsonify(update_client.to_dict()), 200
+    return {'error': 'Fail no user¡¡'} , 400
+
+"""
+@api.route('/barber/<int:id>', methods=['PUT'])
+def edit_barber(id):
+    new_info = { 
+        'img' : request.json.get('img', None),
+        'name' : request.json.get('name', None),
+        'lastname' : request.json.get('lastname', None),
+        'phone_number' : request.json.get('phone_number', None),
+        'email' : request.json.get('email', None),
+        'password' : request.json.get('_password', None),
+        'address' : request.json.get('address', None),
+        'city' : request.json.get('city', None)
+    }
+    account = Account.get_by_id(id)
+    if account:
+        update_barber = account.edit_barber(**{
+            key: value for key,value in new_info.items()
+            if value is not None
+        })
+        return jsonify(update_client.to_dict()), 200
+    return {'error': 'Fail no user¡¡'} , 400
+    """
