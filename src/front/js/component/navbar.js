@@ -1,21 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../styles/nav.scss";
-import { Buscador } from "./buscador.js";
+import Login from "./login.jsx";
+import Register from "./register.jsx";
 
 export const Navbar = () => {
 	return (
 		<nav className="location-nav">
-			<div className="ml-auto">
+			<div>
 				<Link to="/demo" className="img-button-logo btn" />
-				<button size="lg" className="butt-nav">
-					Login
-				</button>{" "}
-				<button size="lg" className="butt-nav">
-					Registro
-				</button>
+
+				<div className="row position-butt-nav">
+					<div className="col-3">
+						<Login />
+					</div>
+					<div className="col-3">
+						<Register />
+					</div>
+				</div>
 			</div>
-			<Buscador />
 		</nav>
 	);
 };

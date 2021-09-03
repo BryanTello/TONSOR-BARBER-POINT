@@ -2,23 +2,23 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.scss";
 import bigote_02 from "../../img/bigote_02.png";
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />;
+import { Buscador } from "../component/buscador.js";
+import Register from "../component/register.jsx";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
-
 	return (
 		<div className="father-div">
 			<div className="header-nav" />
+			<Buscador />
 			<img className="emo-barb" src={bigote_02} />
 			<h1 className="h1-header">Manter tu cabello siempre perfecto ahora es fácil</h1>
-			<p className="p-dark">
+			<p className="p-dark text-center">
 				TONSOR hace que sea muy sencillo mantener un look siempre perfecto, aun cuando no tengas tiempo y
 				estando desde la comodidad de tu casa. Sólo tienes que selecionar tu ubicación, hora y servicio que
 				deseas; del resto nos encarnamos nosotros.
 			</p>
 
-			<div className="body-service text-center float-m-lg">
+			<div className="body-service text-center">
 				<h2 className="h1-header">Tener tu cabello y tu apariencia perfecta ahora es sencillo</h2>
 				<div className="div-service row gy-2">
 					<div className="col-4">
@@ -55,9 +55,9 @@ export const Home = () => {
 						Unirte a nuestro equipo es muy sencillo, sólo debes registrarte y seleccionar los servicios que
 						deseas ofrecer.{" "}
 					</p>
-					<button size="lg" className="butt-reg">
-						Registro
-					</button>
+					<div className="butt-log-barb">
+						<Register />
+					</div>
 				</div>
 			</div>
 		</div>

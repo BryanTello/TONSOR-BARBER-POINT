@@ -1,6 +1,9 @@
 .location-nav {
     position: absolute;
     top: 2rem; left: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .img-button-logo{
     background: url("../img/TONSOR_LOGO.png");
@@ -21,6 +24,12 @@
     height: 3rem;
     width: 5rem;
     position: relative;
-    left: 40rem;
+    top:3.4rem;
+    left:23rem;
     border: black;
+}
+.position-butt-nav{
+    position: relative;
+    top: -5rem;
+    left: 50rem;
 }

@@ -1,3 +1,11 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+.father-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 .header-nav {
     background:url("../img/barber-shop-5212059_1920.jpg");
     background-size: cover;
@@ -14,17 +22,20 @@
     color: #C8102E;
     margin: 1rem;
     text-align:center;
+    font-size: xx-large;
+    font-family: 'Oswald';
 }
 .p-dark {
     color: #242331;
     margin: 4rem;
     font-size: x-large;
+    font-family: 'Roboto';
 }
 .body-service {
     background-color: #E9EBED;
     border-radius: 2rem;
     margin-top: 5rem;
-    margin: 5rem;
+    margin: 4rem;
 }
 
 .img-service-global {
@@ -71,7 +82,7 @@
     background-size: cover;
 }
 .barber-card {
-    background: url("../img/VECTOR-PELUQUERO\ 1.png");
+    background: url("../img/VECTOR-PELUQUERO\ 1\ \(1\).png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -86,4 +97,8 @@
     height: 3rem;
     width: 5rem;
     border: black;
+}
+.butt-log-barb {
+    position: relative;
+    left:4rem;
 }
