@@ -22,10 +22,11 @@ class Account(db.Model):
     address = db.Column(db.VARCHAR, unique=False, nullable=False)
     city = db.Column(db.VARCHAR, unique=False, nullable=False)
     cp = db.Column(db.VARCHAR, unique=False, nullable=False)
+    is_client = db.Column(db.Boolean(), unique=False, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     
-    have_barber = relationship("Barber", back_populates="account")
-    have_client = relationship("Client", back_populates="account")
+    have_barber = relationship("Barber", backref="account")
+    have_client = relationship("Client", backref="account")
 
     
 
@@ -41,7 +42,7 @@ class Account(db.Model):
             "phone_number": self.phone_number,
             "email": self.email,
             "address": self.address, 
-            "city": self.ciudad, 
+            "city": self.city, 
             "cp": self.cp
         }
     def create(self):
@@ -49,6 +50,19 @@ class Account(db.Model):
         db.session.commit()
 
 
+    @classmethod
+    def get_by_id(cls, id):
+        account = cls.query.get(id)
+        return account
+
+    @classmethod
+    def get_by_email(cls, email):
+        account = cls.query.filter_by(email=email).one_or_none()
+        return account
+
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Client(db.Model):
     __tablename__="client"
@@ -59,18 +73,36 @@ class Client(db.Model):
     have_review = relationship("Review", backref="client")
 
     def __repr__(self):
-        return f'Client {self.client}'
-    
-    def serialize(self):
+        return f'Client {self.id}'
+
+    def to_dict(self):
+        client = Account.get_by_id(self.id_account)
+
         return {
-            "id": self.id, 
-            "id_account": self.id_account
+            "id": self.id,
+            "img": client.img, 
+            "name": client.name, 
+            "lastname":client.lastname, 
+            "phone_number": client.phone_number,
+            "email": client.email,
+            "address": client.address, 
+            "city": client.city, 
+            "cp": client.cp
         }
+
+    @classmethod
+    def get_by_id(cls, id):
+        client = cls.query.get(id)
+        return client
+
+    @classmethod
+    def get_by_id_account(cls, id):
+        client = cls.query.filter_by(id_account = id).one_or_none()
+        return client
 
     def create(self):
         db.session.add(self)
         db.session.commit()
-
 
 
 class Review(db.Model):
@@ -88,6 +120,7 @@ class Review(db.Model):
     def serialize (self):
         return {
             "id": self.id, 
+            "id_client": self.id_client,
             "text": self.text,
             "ratings": self.ratings 
         }
@@ -96,20 +129,43 @@ class Review(db.Model):
 class Barber(db.Model):
     __tablename__="barber"
     id = db.Column(db.Integer, primary_key=True)
-    radio = db.Column(db.Integer, nullable=False)
+    radio = db.Column(db.Integer, nullable=True)
+    id_account = db.Column(db.Integer, ForeignKey("account.id"))
 
-    have_account = db.Column(db.Integer, ForeignKey("account.id"))
     have_review = relationship("Review", backref="barber")
-    have_barber_services = relationship("Barber_Services", backref="barber")
+    have_barber_services = relationship("Barber_Services", backref="barber", overlaps="barber, have_barber_services")
 
     def __repr__(self):
-        return f'Barber {self.barber}'
-    
-    def serialize (self):
+        return f'Barber {self.id}'
+
+    def to_dict(self):
+        barber = Account.get_by_id(self.id_account)
+
         return {
-            "id": self.id, 
-            "radio": self.radio
+            "id": self.id,
+            "img": barber.img, 
+            "name": barber.name, 
+            "lastname":barber.lastname, 
+            "phone_number": barber.phone_number,
+            "email": barber.email,
+            "address": barber.address, 
+            "city": barber.city, 
+            "cp": barber.cp
         }
+
+    @classmethod
+    def get_by_id(cls, id):
+        barber = cls.query.get(id)
+        return barber
+
+    @classmethod
+    def get_by_id_account(cls, id):
+        barber = cls.query.filter_by(id_account = id).one_or_none()
+        return barber
+
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
 
 class Services(db.Model):
     __tablename__="services"
@@ -138,11 +194,11 @@ class Barber_Services(db.Model):
     id_barber = db.Column(db.Integer, ForeignKey("barber.id"))
     id_services = db.Column(db.Integer, ForeignKey("services.id"))
 
-    have_barber = relationship("Barber",  backref="barberServices")
-    have_appointment = relationship("Appointment", backref="barber_services")
+    have_barber = relationship("Barber",  backref="barberServices", overlaps="barber, have_barber_services")
+    have_appointment = relationship("Appointment", backref="barberServices")
 
     def __repr__(self):
-        return f'Barber_Services {self.barber_services}'
+        return f'Barber_Services {self.barberServices}'
     
     def serialize (self):
         return {
