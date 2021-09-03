@@ -44,6 +44,10 @@ class Account(db.Model):
             "city": self.ciudad, 
             "cp": self.cp
         }
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+
 
 
 class Client(db.Model):
@@ -57,11 +61,16 @@ class Client(db.Model):
     def __repr__(self):
         return f'Client {self.client}'
     
-    def serialize (self):
+    def serialize(self):
         return {
             "id": self.id, 
             "id_account": self.id_account
         }
+
+    def create(self):
+        db.session.add(self)
+        db.session.commit()
+
 
 
 class Review(db.Model):
