@@ -1,4 +1,3 @@
-
 import os
 import sys
 from flask_sqlalchemy import SQLAlchemy
@@ -63,6 +62,14 @@ class Account(db.Model):
     def create(self):
         db.session.add(self)
         db.session.commit()
+    
+     #Editar los datos id
+    def edit_account(self, **kwargs):
+        for key,value in kwargs.items():
+            setattr(self, key, value)
+
+        db.session.commit()
+        return self
 
 class Client(db.Model):
     __tablename__="client"
@@ -140,7 +147,7 @@ class Barber(db.Model):
     id_account = db.Column(db.Integer, ForeignKey("account.id"))
 
     have_review = relationship("Review", backref="barber")
-    have_barber_services = relationship("Barber_Services", backref="barber", overlaps="barber, have_barber_services")
+    have_barber_services = relationship("Barber_Services", backref="barber")
 
     def __repr__(self):
         return f'Barber {self.id}'
@@ -174,12 +181,20 @@ class Barber(db.Model):
         db.session.add(self)
         db.session.commit()
 
+     #Editar los datos id
+    def edit_barber(self, **kwargs):
+        for key,value in kwargs.items():
+            setattr(self, key, value)
+
+        db.session.commit()
+        return self
+
 class Services(db.Model):
     __tablename__="services"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.VARCHAR, unique=False, nullable=False)
 
-    have_barber_services = relationship("Barber_Services", backref="services")
+    is_in_barber_services = relationship("Barber_Services", backref="services")
 
     def __repr__(self):
         return f'Services {self.services}'
@@ -201,7 +216,6 @@ class Barber_Services(db.Model):
     id_barber = db.Column(db.Integer, ForeignKey("barber.id"))
     id_services = db.Column(db.Integer, ForeignKey("services.id"))
 
-    have_barber = relationship("Barber",  backref="barberServices", overlaps="barber, have_barber_services")
     have_appointment = relationship("Appointment", backref="barberServices")
 
     def __repr__(self):
@@ -216,5 +230,7 @@ class Barber_Services(db.Model):
             "description": self.description, 
             "id_barber": self.id_barber
         }
+
+
 
 

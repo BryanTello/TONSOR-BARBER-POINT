@@ -112,6 +112,7 @@ def create_client():
     except exc.IntegrityError:
         return ({'error': 'This email / phone number is already in use'}), 400
 
+
 @api.route('/client/<int:id>', methods=['GET'])
 @jwt_required()
 def get_client_profile(id):
@@ -126,6 +127,7 @@ def get_client_profile(id):
         return({'error': 'Not fount'})
     
     return({'error': 'Access denied'}), 401
+
 
 @api.route('/barber', methods=['POST'])
 def create_barber():
@@ -190,6 +192,7 @@ def create_barber():
     except exc.IntegrityError:
         return ({'error': 'This email / phone number is already in use'}), 400
 
+
 @api.route('/barber/<int:id>', methods=['GET'])
 def get_barber_profile(id):
     barber = Barber.get_by_id(id)
@@ -218,7 +221,7 @@ class Appointment(db.Model):
             "id_barber_Services":self.id_barber_Services,
             "id_client": self.id_client 
         }
-    
+"""  
 @api.route('/client/<int:id>', methods=['PUT'])
 def edit_client(id):
     new_info = { 
@@ -239,7 +242,7 @@ def edit_client(id):
         })
         return jsonify(update_client.to_dict()), 200
     return {'error': 'Fail no user¡¡'} , 400
-
+"""
 """
 @api.route('/barber/<int:id>', methods=['PUT'])
 def edit_barber(id):
