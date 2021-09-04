@@ -204,24 +204,8 @@ def get_barber_profile(id):
 
 
     
-class Appointment(db.Model):
-    __tablename__="appointment"
-    id = db.Column(db.Integer, primary_key=True)
-    date_appointment = db.Column(db.DateTime, nullable=False)
-    id_barber_Services = db.Column(db.Integer, ForeignKey("barberServices.id"))
-    id_client = db.Column(db.Integer, ForeignKey("client.id"))
 
-    def __repr__(self):
-        return f'Appointment {self.appointment}'
-
-    def serialize (self):
-        return {
-            "id": self.id, 
-            "date_Appointment": self.date_appointment, 
-            "id_barber_Services":self.id_barber_Services,
-            "id_client": self.id_client 
-        }
-"""  
+ 
 @api.route('/client/<int:id>', methods=['PUT'])
 def edit_client(id):
     new_info = { 
@@ -236,14 +220,14 @@ def edit_client(id):
     }
     account = Account.get_by_id(id)
     if account:
-        update_client = account.edit_client(**{
+        update_client = account.edit_account(**{
             key: value for key,value in new_info.items()
             if value is not None
         })
-        return jsonify(update_client.to_dict()), 200
+        return jsonify(update_client.serialize()), 200
     return {'error': 'Fail no user¡¡'} , 400
-"""
-"""
+
+
 @api.route('/barber/<int:id>', methods=['PUT'])
 def edit_barber(id):
     new_info = { 
@@ -258,10 +242,10 @@ def edit_barber(id):
     }
     account = Account.get_by_id(id)
     if account:
-        update_barber = account.edit_barber(**{
+        update_barber = account.edit_account(**{
             key: value for key,value in new_info.items()
             if value is not None
         })
-        return jsonify(update_client.to_dict()), 200
+        return jsonify(update_baber.serialize()), 200
     return {'error': 'Fail no user¡¡'} , 400
-    """
+    

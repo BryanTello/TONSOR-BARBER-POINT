@@ -59,9 +59,7 @@ class Account(db.Model):
         account = cls.query.filter_by(email=email).one_or_none()
         return account
 
-    def create(self):
-        db.session.add(self)
-        db.session.commit()
+
     
      #Editar los datos id
     def edit_account(self, **kwargs):
@@ -231,6 +229,21 @@ class Barber_Services(db.Model):
             "id_barber": self.id_barber
         }
 
+class Appointment(db.Model):
+    __tablename__="appointment"
+    id = db.Column(db.Integer, primary_key=True)
+    date_appointment = db.Column(db.DateTime, nullable=False)
+    id_barber_Services = db.Column(db.Integer, ForeignKey("barberServices.id"))
+    id_client = db.Column(db.Integer, ForeignKey("client.id"))
 
+    def __repr__(self):
+        return f'Appointment {self.appointment}'
 
+    def serialize (self):
+        return {
+            "id": self.id, 
+            "date_Appointment": self.date_appointment, 
+            "id_barber_Services":self.id_barber_Services,
+            "id_client": self.id_client 
+        }
 
