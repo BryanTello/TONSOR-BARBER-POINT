@@ -206,7 +206,7 @@ def get_barber_profile(id):
     
 
  
-@api.route('/client/<int:id>', methods=['PUT'])
+@api.route('/account/<int:id>', methods=['PUT'])
 def edit_client(id):
     new_info = { 
         'img' : request.json.get('img', None),
@@ -225,9 +225,18 @@ def edit_client(id):
             if value is not None
         })
         return jsonify(update_client.serialize()), 200
-    return {'error': 'Fail no user¡¡'} , 400
+    return jsonify({'error': 'Fail no user¡¡'}) , 400
+
+@api.route('/accountdelete/<int:id>', methods=['PUT'])
+def deletecount(id):
+    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    delete = Account.delete_account(id)
+    if delete:
+        return jsonify({'response': 'Correct delete'}), 200
+    return jsonify({'ERROR': 'Fail delete'}), 400
 
 
+"""
 @api.route('/barber/<int:id>', methods=['PUT'])
 def edit_barber(id):
     new_info = { 
@@ -248,4 +257,4 @@ def edit_barber(id):
         })
         return jsonify(update_baber.serialize()), 200
     return {'error': 'Fail no user¡¡'} , 400
-    
+"""

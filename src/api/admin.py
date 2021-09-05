@@ -15,6 +15,8 @@ def setup_admin(app):
         column_display_pk = True
     #admin.add_view(ModelView(Account, db.session))
     admin.add_view(MyModel(Account, db.session))
+    admin.add_view(MyModel(Barber, db.session))
+    admin.add_view(MyModel(Client, db.session))
 
     # You can duplicate that line to add mew models
     # admin.add_view(ModelView(YourModelName, db.session))

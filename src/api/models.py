@@ -47,6 +47,7 @@ class Account(db.Model):
     def create(self):
         db.session.add(self)
         db.session.commit()
+    
 
 
     @classmethod
@@ -68,6 +69,17 @@ class Account(db.Model):
 
         db.session.commit()
         return self
+    @classmethod
+    def delete_account(cls,id):
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        account_delete = cls.query.filter_by(id=id).first()
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        if account_delete and account_delete.is_active:
+            account_delete.is_active = False
+            db.session.commit()
+            return True
+        return False
+
 
 class Client(db.Model):
     __tablename__="client"
