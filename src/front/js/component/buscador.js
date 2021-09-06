@@ -9,6 +9,7 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import { DateTimePicker } from "@material-ui/pickers";
 import esLocale from "date-fns/locale/es";
+import Mapview from "./mapview.js";
 
 export const Buscador = () => {
 	const [show, setShow] = useState(false);
@@ -42,7 +43,7 @@ export const Buscador = () => {
 								<label htmlFor="datetime">Horarios</label>
 								<MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
 									<div className="container">
-										<div className="object">
+										<div>
 											<label />
 											<DateTimePicker value={saveDate} onChange={setsaveDate} />
 										</div>
@@ -54,18 +55,20 @@ export const Buscador = () => {
 								<label htmlFor="services">Servicios</label>
 								<select className="form-select form-select mb-3" aria-label=".form-select example">
 									<option selected>Abrir opciones</option>
-									<option value="1">Corte de Cabello y Barbería</option>
-									<option value="2">Depilacíon de Espalda</option>
-									<option value="3">Depilacíon de torso</option>
-									<option value="4">Depilacíon de piernas</option>
-									<option value="5">Manicure</option>
-									<option value="6">Pedicure</option>
+									<option value="CCB">Corte de Cabello y Barbería</option>
+									<option value="DE">Depilacíon de Espalda</option>
+									<option value="DT">Depilacíon de torso</option>
+									<option value="DP">Depilacíon de piernas</option>
+									<option value="M">Manicure</option>
+									<option value="P">Pedicure</option>
+									<option value="PIG">Pegmentación</option>
 								</select>
 							</div>
 							<div className="col-4">
 								<h3 className="h1-cabecera-m">Selecciona a tu barbero</h3>
 								<label htmlFor="barber">Buscar</label>
-								<input type="text" className="form-select mb-3" />
+								<input type="text" />
+								<Mapview />
 							</div>
 						</div>
 					</div>

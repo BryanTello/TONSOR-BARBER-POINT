@@ -115,7 +115,7 @@ def get_client_profile():
     return({'error': 'Access denied'}), 401
 
 @api.route('/barber', methods=['POST'])
-def create_client():
+def create_barber():
     img = request.json.get(
         'img', None
     )

@@ -5,7 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
 from sqlalchemy.dialects.postgresql import VARCHAR
-from sqlalchemy import Column, ForeignKey, Integer, Table, DateTime, Numeric
+from sqlalchemy import Column, ForeignKey, Integer, Table, DateTime, Numeric,Enum
 #from werkzeug.security import check_password_hash
 
 db = SQLAlchemy()
@@ -179,7 +179,7 @@ class Barber(db.Model):
 class Services(db.Model):
     __tablename__="services"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.VARCHAR, unique=False, nullable=False)
+    name = db.Column(db.Enum("CCB", "DE", "DT", "DP", "M", "P", "PIG"), unique=False, nullable=False)
 
     have_barber_services = relationship("Barber_Services", backref="services")
 
