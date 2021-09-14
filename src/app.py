@@ -29,6 +29,13 @@ else:
         uri = uri.replace("postgres://", "postgresql://", 1)
     app.config['SQLALCHEMY_DATABASE_URI'] = uri
 
+app.config["JWT_SECRET_KEY"] = os.environ.get('FLASK_APP_KEY')
+jwt = JWTManager(app)
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+MIGRATE = Migrate(app, db)
+db.init_app(app)
+
 # Allow CORS requests to this API
 CORS(app)
 
